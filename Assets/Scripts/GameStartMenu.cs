@@ -20,6 +20,9 @@ public class GameStartMenu : MonoBehaviour
     public Button creditsButton;
     public Button quitButton;
 
+    [Header("Game Menu Settings")]
+    public TMPro.TMP_Dropdown gameModeDropdown;
+
     public List<Button> returnButtons;
 
     // Start is called before the first frame update
@@ -49,6 +52,15 @@ public class GameStartMenu : MonoBehaviour
     public void StartGame()
     {
         HideAll();
+        if (gameModeDropdown.options[gameModeDropdown.value].text == "Tutorial")
+        {
+            SceneTransitionManager.singleton.SetMode(SceneTransitionManager.GameMode.Tutorial);
+        }
+        else
+        {
+            SceneTransitionManager.singleton.SetMode(SceneTransitionManager.GameMode.TimeAttack);
+        }
+
         SceneTransitionManager.singleton.GoToSceneAsync(1);
     }
 
