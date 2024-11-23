@@ -11,6 +11,7 @@ public class GameStartMenu : MonoBehaviour
     public GameObject scoreboard;
     public GameObject settings;
     public GameObject credits;
+    public GameObject newGameAlert;
 
     [Header("Main Menu Buttons")]
     public Button newGameButton;
@@ -22,6 +23,7 @@ public class GameStartMenu : MonoBehaviour
 
     [Header("Game Menu Settings")]
     public TMPro.TMP_Dropdown gameModeDropdown;
+    public Button newGameAlertButton;
 
     public List<Button> returnButtons;
 
@@ -37,6 +39,7 @@ public class GameStartMenu : MonoBehaviour
         settingsButton.onClick.AddListener(EnableSettings);
         creditsButton.onClick.AddListener(EnableCredits);
         quitButton.onClick.AddListener(QuitGame);
+        newGameAlertButton.onClick.AddListener(DisableNewGameAlert);
 
         foreach (var item in returnButtons)
         {
@@ -51,17 +54,24 @@ public class GameStartMenu : MonoBehaviour
 
     public void StartGame()
     {
-        HideAll();
-        if (gameModeDropdown.options[gameModeDropdown.value].text == "Tutorial")
+        if (SceneTransitionManager.singleton.currentRecipe != SceneTransitionManager.Recipe.None)
         {
-            SceneTransitionManager.singleton.SetMode(SceneTransitionManager.GameMode.Tutorial);
+            HideAll();
+            if (gameModeDropdown.options[gameModeDropdown.value].text == "Tutorial")
+            {
+                SceneTransitionManager.singleton.SetGameMode(SceneTransitionManager.GameMode.Tutorial);
+            }
+            else
+            {
+                SceneTransitionManager.singleton.SetGameMode(SceneTransitionManager.GameMode.TimeTrial);
+            }
+                SceneTransitionManager.singleton.GoToSceneAsync(1);
         }
         else
         {
-            SceneTransitionManager.singleton.SetMode(SceneTransitionManager.GameMode.TimeAttack);
+            EnableNewGameAlert();
         }
 
-        SceneTransitionManager.singleton.GoToSceneAsync(1);
     }
 
     public void HideAll()
@@ -89,6 +99,15 @@ public class GameStartMenu : MonoBehaviour
         scoreboard.SetActive(false);
         credits.SetActive(false);
     }
+    public void EnableNewGameAlert()
+    {
+        mainMenu.SetActive(false);
+        newGameMenu.SetActive(true);
+        newGameAlert.SetActive(true);
+        settings.SetActive(false);
+        scoreboard.SetActive(false);
+        credits.SetActive(false);
+    }
     public void EnableSettings()
     {
         mainMenu.SetActive(false);
@@ -112,5 +131,14 @@ public class GameStartMenu : MonoBehaviour
         settings.SetActive(false);
         scoreboard.SetActive(false);
         credits.SetActive(true);
+    }
+    public void DisableNewGameAlert()
+    {
+        mainMenu.SetActive(false);
+        newGameMenu.SetActive(true);
+        newGameAlert.SetActive(false);
+        settings.SetActive(false);
+        scoreboard.SetActive(false);
+        credits.SetActive(false);
     }
 }

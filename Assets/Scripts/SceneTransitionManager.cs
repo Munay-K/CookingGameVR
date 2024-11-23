@@ -7,9 +7,12 @@ public class SceneTransitionManager : MonoBehaviour
 {
     public FadeScreen fadeScreen;
     public static SceneTransitionManager singleton;
-    public enum GameMode { Tutorial, TimeAttack }
-    public GameMode currentMode;
+    public enum GameMode { Tutorial, TimeTrial }
+    public enum Recipe { None, BistecPobre, Spaghetti }
 
+    public GameMode currentMode;
+    public Recipe currentRecipe = Recipe.None;
+    
 
     private void Awake()
     {
@@ -22,13 +25,21 @@ public class SceneTransitionManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void SetMode(GameMode mode)
+    public void SetGameMode(GameMode mode)
     {
         currentMode = mode;
+    }
+    public void SetRecipe(Recipe recipe)
+    {
+        currentRecipe = recipe;
     }
     public GameMode GetMode()
     {
         return currentMode;
+    }
+    public Recipe GetRecipe()
+    {
+        return currentRecipe;
     }
 
     public void GoToScene(int sceneIndex)

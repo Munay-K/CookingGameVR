@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.UI.ContentSizeFitter;
 
-public enum GameMode { Tutorial, TimeAttack }
+public enum GameMode { Tutorial, TimeTrial }
+public enum Recipe { BistecPobre, Spaghetti}
 public class GameModeManager : MonoBehaviour
 {
     public static GameModeManager Instance;
     public GameMode currentMode;
+    public Recipe currentRecipe;
     public GameObject tutorialObjects;
-    public GameObject timeAttackObjects;
+    public GameObject timeTrialObjects;
 
     private void Awake()
     {
@@ -29,22 +31,26 @@ public class GameModeManager : MonoBehaviour
         if (SceneTransitionManager.singleton.GetMode() == SceneTransitionManager.GameMode.Tutorial)
         {
             // Enable tutorial pop-ups
-            SetMode(GameMode.Tutorial);
-            timeAttackObjects.SetActive(false);
+            SetGameMode(GameMode.Tutorial);
+            timeTrialObjects.SetActive(false);
             tutorialObjects.SetActive(true);
         }
-        else if (SceneTransitionManager.singleton.GetMode() == SceneTransitionManager.GameMode.TimeAttack)
+        else if (SceneTransitionManager.singleton.GetMode() == SceneTransitionManager.GameMode.TimeTrial)
         {
             // Start the timer and gameplay
-            SetMode(GameMode.TimeAttack);
-            timeAttackObjects.SetActive(true);
+            SetGameMode(GameMode.TimeTrial);
+            timeTrialObjects.SetActive(true);
             tutorialObjects.SetActive(false);
         }
     }
 
-    public void SetMode(GameMode mode)
+    public void SetGameMode(GameMode mode)
     {
         currentMode = mode;
+    }
+    public void SetRecipe(Recipe recipe)
+    {
+        currentRecipe = recipe;
     }
 }
 
