@@ -12,6 +12,7 @@ public class GameStartMenu : MonoBehaviour
     public GameObject settings;
     public GameObject credits;
     public GameObject newGameAlert;
+    public GameObject exitGameAlert;
 
     [Header("Main Menu Buttons")]
     public Button newGameButton;
@@ -19,11 +20,13 @@ public class GameStartMenu : MonoBehaviour
     public Button settingsButton;
     public Button scoreboardButton;
     public Button creditsButton;
-    public Button quitButton;
+    public Button exitButton;
 
     [Header("Game Menu Settings")]
     public TMPro.TMP_Dropdown gameModeDropdown;
     public Button newGameAlertButton;
+    public Button exitGameAlertYesButton;
+    public Button exitGameAlertNoButton;
 
     public List<Button> returnButtons;
 
@@ -38,8 +41,11 @@ public class GameStartMenu : MonoBehaviour
         scoreboardButton.onClick.AddListener(EnableScoreboard);
         settingsButton.onClick.AddListener(EnableSettings);
         creditsButton.onClick.AddListener(EnableCredits);
-        quitButton.onClick.AddListener(QuitGame);
+        exitButton.onClick.AddListener(EnableExitGameAlert);
+
         newGameAlertButton.onClick.AddListener(DisableNewGameAlert);
+        exitGameAlertYesButton.onClick.AddListener(ExitGame);
+        exitGameAlertNoButton.onClick.AddListener(DisableExitGameAlert);
 
         foreach (var item in returnButtons)
         {
@@ -47,7 +53,7 @@ public class GameStartMenu : MonoBehaviour
         }
     }
 
-    public void QuitGame()
+    public void ExitGame()
     {
         #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
@@ -141,6 +147,24 @@ public class GameStartMenu : MonoBehaviour
         mainMenu.SetActive(false);
         newGameMenu.SetActive(true);
         newGameAlert.SetActive(false);
+        settings.SetActive(false);
+        scoreboard.SetActive(false);
+        credits.SetActive(false);
+    }
+    public void EnableExitGameAlert()
+    {
+        mainMenu.SetActive(false);
+        newGameMenu.SetActive(false);
+        exitGameAlert.SetActive(true);
+        settings.SetActive(false);
+        scoreboard.SetActive(false);
+        credits.SetActive(false);
+    }
+    public void DisableExitGameAlert()
+    {
+        mainMenu.SetActive(true);
+        newGameMenu.SetActive(false);
+        exitGameAlert.SetActive(false);
         settings.SetActive(false);
         scoreboard.SetActive(false);
         credits.SetActive(false);
