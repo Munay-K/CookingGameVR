@@ -20,6 +20,21 @@ public class Scoreboard : MonoBehaviour
         UpdateScoreboardUI();
     }
 
+    public void ResetScores()
+    {
+        // Clear the local scoreboard list
+        scoreboardEntries.Clear();
+
+        // Clear the saved data in PlayerPrefs
+        PlayerPrefs.DeleteKey(SaveKey);
+        PlayerPrefs.Save();
+
+        // Update the UI
+        UpdateScoreboardUI();
+
+        Debug.Log("Scoreboard reset successfully.");
+    }
+
     // Add score from console by providing playerName and score
     public void AddScoreFromConsole(string playerName, int score)
     {
