@@ -13,6 +13,7 @@ public class GameStartMenu : MonoBehaviour
     public GameObject credits;
     public GameObject newGameAlert;
     public GameObject exitGameAlert;
+    public GameObject deleteScoreboardAlert;
 
     [Header("Main Menu Buttons")]
     public Button newGameButton;
@@ -27,6 +28,9 @@ public class GameStartMenu : MonoBehaviour
     public Button newGameAlertButton;
     public Button exitGameAlertYesButton;
     public Button exitGameAlertNoButton;
+    public Button deleteScoreboardButton;
+    public Button deleteScoreboardYesAlert;
+    public Button deleteScoreboardNoAlert;
 
     public List<Button> returnButtons;
 
@@ -42,10 +46,14 @@ public class GameStartMenu : MonoBehaviour
         settingsButton.onClick.AddListener(EnableSettings);
         creditsButton.onClick.AddListener(EnableCredits);
         exitButton.onClick.AddListener(EnableExitGameAlert);
+        deleteScoreboardButton.onClick.AddListener(EnableScoreboardDeleteAlert);
+
+
 
         newGameAlertButton.onClick.AddListener(DisableNewGameAlert);
         exitGameAlertYesButton.onClick.AddListener(ExitGame);
         exitGameAlertNoButton.onClick.AddListener(DisableExitGameAlert);
+        deleteScoreboardNoAlert.onClick.AddListener(DisableScoreboardDeleteAlert);
 
         foreach (var item in returnButtons)
         {
@@ -124,6 +132,7 @@ public class GameStartMenu : MonoBehaviour
         newGameMenu.SetActive(false);
         settings.SetActive(true);
         scoreboard.SetActive(false);
+        deleteScoreboardAlert.SetActive(false);
         credits.SetActive(false);
     }
     public void EnableScoreboard()
@@ -166,6 +175,23 @@ public class GameStartMenu : MonoBehaviour
         newGameMenu.SetActive(false);
         exitGameAlert.SetActive(false);
         settings.SetActive(false);
+        scoreboard.SetActive(false);
+        credits.SetActive(false);
+    }
+    public void EnableScoreboardDeleteAlert() {
+        mainMenu.SetActive(false);
+        newGameMenu.SetActive(false);
+        settings.SetActive(true);
+        deleteScoreboardAlert.SetActive(true);
+        scoreboard.SetActive(false);
+        credits.SetActive(false);
+    }
+    public void DisableScoreboardDeleteAlert()
+    {
+        mainMenu.SetActive(false);
+        newGameMenu.SetActive(false);
+        settings.SetActive(true);
+        deleteScoreboardAlert.SetActive(false);
         scoreboard.SetActive(false);
         credits.SetActive(false);
     }
